@@ -1,6 +1,14 @@
 # CS-410 (Text Information Systems) Project
 Infer operating system from commands/packages
 
+## Project Member(s)
+
+- Swarup Ghosh (UIUC Net ID: swarupg2)
+
 ## Proposal
 
 The complete project proposal can be found [here](./PROPOSAL.md). The track for the project submission was choosen to be as "Free Topic".
+
+## Progress Report
+
+The current progress report (as of 2023-11-19) can be found [here](./PROGRESS.md). 

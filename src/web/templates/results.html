@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command Search Results</title>
+    <style>
+       @import url('https://fonts.googleapis.com/css2?family=Ubuntu&family=Ubuntu+Mono&display=swap');
+        body {
+            padding: 10%;
+        }
+        code.query {
+            color: green;
+            font-family: 'Ubuntu Mono';
+            font-size: 0.8em;
+        }
+        * {
+            font-family: 'Ubuntu';
+        }
+        #return-btn {
+            text-decoration: none;
+            color: gray;
+        }
+        table {
+            width: 100%;
+        }
+        td {
+            display: flexbox;
+        }
+        div.results {
+            display: flex;
+        }
+        div.container {
+            flex: 1;
+            float: left;
+            width: 40%;
+            min-width: 250px;
+        }
+        div.scroll {
+            max-height: 500px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            margin: 2.5%;
+        }
+        pre {
+            margin: 0;
+        }
+        a.retrieved {
+            text-decoration: none;
+            color: cadetblue;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- and it's easy to individually load additional languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+</head>
+<body>
+    <a href="/" id="return-btn">⬅️ return to search</a><br><br>
+    <h2>
+        <code class="query">{{ query }}</code> could be likely for
+    </h2>
+    
+    <div id="chart"></div>
+
+    <h2>top hits are</h2>
+    
+    <div id="results">
+        {% for item in top_items %}
+        <div class="container">
+            <a class="retrieved" href="https://github.com/{{ item['repo'] }}/blob/HEAD/{{ item['path'] }}">{{ item['repo'] }} - {{ item['path'] }}</a>
+            <div class="scroll"><pre><code class="retrieved">{{ item['content'] }}</code></pre></div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- <table>
+        <tr>
+            <td>{{ top_items[0] }}</td>
+            <td><pre><code>{{ top_items[1] }}</code></pre></td>
+        </tr>
+        <tr>
+            <td><pre><code>{{ top_items[2] }}</code></pre></td>
+            <td><pre><code>{{ top_items[3] }}</code></pre></td>
+        </tr>
+        <tr>
+            <td><pre><code>{{ top_items[4] }}</code></pre></td>
+            <td><pre><code>{{ top_items[5] }}</code></pre></td>
+        </tr>
+    </table> -->
+    
+    <script>
+        var categoryPercentage = [
+            {% for result in results %}
+                "{{ result['percentage'] }}",
+            {% endfor %}
+        ];
+
+        var categoryLabels = [
+            {% for result in results %}
+                "{{ result['category'] }}",
+            {% endfor %}
+        ];
+        var options = {
+          series: [{
+          data: categoryPercentage
+        }],
+          chart: {
+          type: 'bar',
+          height: 350
+        },
+        plotOptions: {
+          bar: {
+            borderRadius: 4,
+            horizontal: true,
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        xaxis: {
+          categories: categoryLabels,
+        }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    </script>
+    
+    <script>hljs.highlightAll();</script>
+    <style>
+        code.retrieved {
+            font-size: 0.8em;
+        }
+    </style>
+</body>
+</html>
