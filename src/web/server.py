@@ -47,10 +47,13 @@ def search_database(query):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        query = request.form['search']
+        query = request.form['query']
         results, top_items = search_database(query)
         return render_template('results.html', results=results, top_items=top_items, query=query)
-    return render_template('index.html')
+    else:
+        query = request.args.get("query")
+        query = "" if query is None else query
+        return render_template('index.html', query=query)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

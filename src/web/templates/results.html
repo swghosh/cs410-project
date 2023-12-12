@@ -6,30 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Command Search Results</title>
     <style>
-       @import url('https://fonts.googleapis.com/css2?family=Ubuntu&family=Ubuntu+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu&family=Ubuntu+Mono&display=swap');
+        * {
+            font-family: 'Ubuntu';
+        } 
         body {
             padding: 10%;
         }
+
+        a#return-btn {
+            text-decoration: none;
+            color: gray;
+        }
+        a#return-btn:hover {
+            text-decoration: underline;
+        }
+
         code.query {
             color: green;
             font-family: 'Ubuntu Mono';
             font-size: 0.8em;
+            display: block;
         }
-        * {
-            font-family: 'Ubuntu';
+        div.likely {
+            display: block;
         }
-        #return-btn {
-            text-decoration: none;
-            color: gray;
-        }
-        table {
-            width: 100%;
-        }
-        td {
-            display: flexbox;
-        }
+
         div.results {
-            display: flex;
+            display: inline-block;
         }
         div.container {
             flex: 1;
@@ -42,6 +46,7 @@
             overflow-x: hidden;
             overflow-y: auto;
             margin: 2.5%;
+            border-radius: 2.5%;
         }
         pre {
             margin: 0;
@@ -49,6 +54,10 @@
         a.retrieved {
             text-decoration: none;
             color: cadetblue;
+            font-size: 0.9em;
+        }
+        a.retrieved:hover {
+            text-decoration: underline;
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
@@ -59,14 +68,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
 </head>
 <body>
-    <a href="/" id="return-btn">⬅️ return to search</a><br><br>
+    <a href="/?query={{ query }}" id="return-btn">⬅️ return to search</a><br><br>
     <h2>
-        <code class="query">{{ query }}</code> could be likely for
+        <code class="query">{{ query }}</code> 
+        <div id="likely">could be likely for ⤵️</div>
     </h2>
     
     <div id="chart"></div>
 
-    <h2>top hits are</h2>
+    <h2>📌 top hits are</h2>
     
     <div id="results">
         {% for item in top_items %}

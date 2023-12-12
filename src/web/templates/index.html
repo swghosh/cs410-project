@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Command Search</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu&family=Ubuntu+Mono&display=swap');
         body {
             padding: 10%;
+            text-align: center;
         }
         code {
             color: green;
@@ -17,18 +18,51 @@
         }
         * {
             font-family: 'Ubuntu';
+            transition: all 0.5s;
         }
-        #return-btn {
-            text-decoration: none;
-            color: gray;
+        label {
+            font-size: 4em;
+            padding: 5%;
+            display: inline-block;
+            color: grey;
+        }
+        input {
+            margin-top: 5%;
+            margin-left: 5%;
+            margin-right: 0;
+            border-style: none;
+            padding: 1%;
+            font-size: 2em;
+            font-family: 'Ubuntu Mono';
+
+            text-align: left;
+            border: none;
+            border-bottom: 1px dashed teal;
+            color: teal;
+            outline: none;
+        }
+        input::placeholder {
+            color: lightgray;
+        }
+        input:focus {
+            font-size: 2.1em;
+            border-bottom: 2px solid green;
+            color: green;
+        }
+        button#submit {
+            font-size: 3em;
+            background-color: rgba(0, 0, 0, 0);
+            border: none;
+            border-radius: 50%;
+            display: inline-block;
         }
     </style>
 </head>
 <body>
-    <form method="post" action="/">
-        <label for="search">Search:</label>
-        <input type="text" id="search" name="search" required>
-        <button type="submit">Search</button>
+    <form method="POST" action="/">
+        <label for="query">🔎  search for your command</label><br>
+        <input type="text" id="query" name="query" required="required" placeholder="echo Hello World" value="{{ query }}">
+        <button id="submit" type="submit">➡️</button>
     </form>
 </body>
 </html>
