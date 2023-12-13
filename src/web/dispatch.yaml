@@ -1,0 +1,3 @@
+dispatch:
+  - url: code-search.appengine.codecrafts.cf
+    service: code-search
