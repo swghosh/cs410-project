@@ -14,21 +14,8 @@ ranker = metapy.index.OkapiBM25()
 app = Flask(__name__)
 icons_b64 = json.load(open('icons.json'))
 
-print('')
 
-def search_database(query):
-    results = [
-        {"category": "RHEL, Fedora, Rocky, CentOS etc.", "percentage": random.uniform(0, 100)},
-        {"category": "Ubuntu, Debian etc. ", "percentage": random.uniform(0, 100)},
-        {"category": "Windows", "percentage": random.uniform(0, 100)},
-        {"category": "Unknown or others", "percentage": random.uniform(0, 100)},
-    ]
-    percent_sum = sum([i["percentage"] for i in results])
-    for result in results:
-        result["percentage"] = result["percentage"] / percent_sum
-
-    results = sorted(results, key=cmp_to_key(lambda x1, x2: - (x1["percentage"] - x2["percentage"])))
-
+def search_query(query):
     doc = metapy.index.Document()
     doc.content(query)
     top_docs = ranker.score(idx, doc, num_results=6)
@@ -44,13 +31,32 @@ def search_database(query):
         } for item in top_items
     ]
     top_items = sorted(top_items, key=cmp_to_key(lambda s1, s2: - (len(s1["content"].split('\n')) - len(s2["content"].split('\n')))))
+    return top_items
+
+def classify_query(query):
+    results = [
+        {"category": "RHEL, Fedora, Rocky, CentOS etc.", "percentage": random.uniform(0, 100)},
+        {"category": "Ubuntu, Debian etc. ", "percentage": random.uniform(0, 100)},
+        {"category": "Windows", "percentage": random.uniform(0, 100)},
+        {"category": "Unknown or others", "percentage": random.uniform(0, 100)},
+    ]
+    percent_sum = sum([i["percentage"] for i in results])
+    for result in results:
+        result["percentage"] = result["percentage"] / percent_sum
+
+    results = sorted(results, key=cmp_to_key(lambda x1, x2: - (x1["percentage"] - x2["percentage"])))
+    return results
+
+def search_and_classify(query):
+    results = classify_query(query)
+    top_items = search_query(query)
     return results, top_items
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         query = request.form['query']
-        results, top_items = search_database(query)
+        results, top_items = search_and_classify(query)
         return render_template('results.html', results=results, top_items=top_items, query=query)
     else:
         query = request.args.get("query")
