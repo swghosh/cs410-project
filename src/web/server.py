@@ -3,14 +3,12 @@ import random
 from functools import cmp_to_key
 
 import pandas as pd
+import pdb
 
-sh_df = pd.read_csv('./csvs/sample_contents_sh.csv')
-bat_df = pd.read_csv('./csvs/sample_contents_bat.csv')
-df_df = pd.read_csv('./csvs/sample_contents_dockerfile.csv')
+data_df = pd.read_json("./data/dataset.json")
 
 app = Flask(__name__)
 
-# Assume this is your database function (to be implemented)
 def search_database(query):
     # Placeholder for database query, replace this with your implementation
     # For now, generate dummy data
@@ -27,18 +25,18 @@ def search_database(query):
     results = sorted(results, key=cmp_to_key(lambda x1, x2: - (x1["percentage"] - x2["percentage"])))
 
     top_items = [
-        sh_df.loc[random.randint(0, len(sh_df) - 1)],
-        df_df.loc[random.randint(0, len(df_df) - 1)],
-        bat_df.loc[random.randint(0, len(bat_df) - 1)],
-        df_df.loc[random.randint(0, len(df_df) - 1)],
-        sh_df.loc[random.randint(0, len(sh_df) - 1)],
-        bat_df.loc[random.randint(0, len(bat_df) - 1)],
+        data_df.loc[random.randint(0, len(data_df) - 1)],
+        data_df.loc[random.randint(0, len(data_df) - 1)],
+        data_df.loc[random.randint(0, len(data_df) - 1)],
+        data_df.loc[random.randint(0, len(data_df) - 1)],
+        data_df.loc[random.randint(0, len(data_df) - 1)],
+        data_df.loc[random.randint(0, len(data_df) - 1)],
     ]
     top_items = [
         {
             "repo": item["sample_repo_name"],
             "path": item["sample_path"],
-            "content": item["content"]
+            "content": item["original_content"] if item["original_content"] else item["content"]
         } for item in top_items
     ]
     top_items = sorted(top_items, key=cmp_to_key(lambda s1, s2: - (len(s1["content"].split('\n')) - len(s2["content"].split('\n')))))
