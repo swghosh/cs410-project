@@ -4,9 +4,9 @@ from functools import cmp_to_key
 
 import pandas as pd
 
-sh_df = pd.read_csv('../../data/sample_contents_sh.csv')
-bat_df = pd.read_csv('../../data/sample_contents_bat.csv')
-df_df = pd.read_csv('../../data/sample_contents_dockerfile.csv')
+sh_df = pd.read_csv('./csvs/sample_contents_sh.csv')
+bat_df = pd.read_csv('./csvs/sample_contents_bat.csv')
+df_df = pd.read_csv('./csvs/sample_contents_dockerfile.csv')
 
 app = Flask(__name__)
 
