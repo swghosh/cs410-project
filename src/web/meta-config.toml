@@ -1,3 +1,4 @@
+
 prefix = "./data"
 
 dataset = "dataset"
@@ -8,3 +9,4 @@ index = "idx"
 method = "ngram-word"
 ngram = 1
 filter = [{type = "icu-tokenizer"}, {type = "lowercase"}]
+

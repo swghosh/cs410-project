@@ -59,6 +59,12 @@
         a.retrieved:hover {
             text-decoration: underline;
         }
+        img.icon {
+            width: 40px;
+            margin: 1%;
+            border-radius: 10%;
+        }
+
     </style>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
@@ -81,6 +87,7 @@
     <div id="results">
         {% for item in top_items %}
         <div class="container">
+            <img class="icon" src="data:image/png;base64,{{ item['icon'] }}">
             <a class="retrieved" href="https://github.com/{{ item['repo'] }}/blob/HEAD/{{ item['path'] }}">{{ item['repo'] }} - {{ item['path'] }}</a>
             <div class="scroll"><pre><code class="retrieved">{{ item['content'] }}</code></pre></div>
         </div>

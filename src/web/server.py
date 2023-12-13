@@ -3,16 +3,20 @@ import random
 from functools import cmp_to_key
 
 import pandas as pd
-import os
 import json
+import metapy
 
 data_df = pd.read_json("./data/dataset.json")
 
+idx = metapy.index.make_inverted_index('meta-config.toml')
+ranker = metapy.index.OkapiBM25()
+
 app = Flask(__name__)
+icons_b64 = json.load(open('icons.json'))
+
+print('')
 
 def search_database(query):
-    # Placeholder for database query, replace this with your implementation
-    # For now, generate dummy data
     results = [
         {"category": "RHEL, Fedora, Rocky, CentOS etc.", "percentage": random.uniform(0, 100)},
         {"category": "Ubuntu, Debian etc. ", "percentage": random.uniform(0, 100)},
@@ -25,15 +29,18 @@ def search_database(query):
 
     results = sorted(results, key=cmp_to_key(lambda x1, x2: - (x1["percentage"] - x2["percentage"])))
 
-    process = os.popen("python3.7 retreive.py " + query)
-    doc_ids = json.loads(process.read())
+    doc = metapy.index.Document()
+    doc.content(query)
+    top_docs = ranker.score(idx, doc, num_results=6)
+    doc_ids = [t[0] for t in top_docs]
     
     top_items = [data_df.loc[i] for i in doc_ids]
     top_items = [
         {
             "repo": item["sample_repo_name"],
             "path": item["sample_path"],
-            "content": item["original_content"] if item["original_content"] else item["content"]
+            "content": item["original_content"] if item["original_content"] else item["content"],
+            "icon": icons_b64[item["source_category"]]
         } for item in top_items
     ]
     top_items = sorted(top_items, key=cmp_to_key(lambda s1, s2: - (len(s1["content"].split('\n')) - len(s2["content"].split('\n')))))
