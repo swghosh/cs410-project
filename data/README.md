@@ -5,3 +5,4 @@ This folder contains data originally obtained from the [GitHub Google BigQuery P
 **Additional Information**:
 - Source: https://cloud.google.com/bigquery/public-data/
 - Date Retrieved: 2023-11-20
+- BigQuery Queries (used for data retrieval): [bq_queries.sql](./bq_queries.sql)
