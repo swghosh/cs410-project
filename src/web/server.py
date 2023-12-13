@@ -3,7 +3,8 @@ import random
 from functools import cmp_to_key
 
 import pandas as pd
-import pdb
+import os
+import json
 
 data_df = pd.read_json("./data/dataset.json")
 
@@ -24,14 +25,10 @@ def search_database(query):
 
     results = sorted(results, key=cmp_to_key(lambda x1, x2: - (x1["percentage"] - x2["percentage"])))
 
-    top_items = [
-        data_df.loc[random.randint(0, len(data_df) - 1)],
-        data_df.loc[random.randint(0, len(data_df) - 1)],
-        data_df.loc[random.randint(0, len(data_df) - 1)],
-        data_df.loc[random.randint(0, len(data_df) - 1)],
-        data_df.loc[random.randint(0, len(data_df) - 1)],
-        data_df.loc[random.randint(0, len(data_df) - 1)],
-    ]
+    process = os.popen("python3.7 retreive.py " + query)
+    doc_ids = json.loads(process.read())
+    
+    top_items = [data_df.loc[i] for i in doc_ids]
     top_items = [
         {
             "repo": item["sample_repo_name"],
