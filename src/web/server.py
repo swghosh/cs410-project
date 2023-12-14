@@ -19,7 +19,7 @@ cats = {
 }
 
 app = Flask(__name__)
-icons_b64 = json.load(open('icons.json'))
+icons_b64 = json.load(open('./data/icons.json'))
 
 
 def search_query(query):
