@@ -1,0 +1,1 @@
+This directory contains html templates used by Flask web app.

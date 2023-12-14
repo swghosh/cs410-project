@@ -1,3 +1,0 @@
-service: code-search
-runtime: python37
-entrypoint: gunicorn --bind :$PORT --workers 1 server:app 
