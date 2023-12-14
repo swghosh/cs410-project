@@ -1,15 +1,24 @@
 from flask import Flask, render_template, request
-import random  
 from functools import cmp_to_key
 
 import pandas as pd
 import json
 import metapy
+import joblib
+import numpy as np
 
 data_df = pd.read_json("./data/dataset.json")
 
 idx = metapy.index.make_inverted_index('meta-config.toml')
 ranker = metapy.index.OkapiBM25()
+
+model = joblib.load('./data/model.joblib')
+cats = {
+    0: 'RHEL, Fedora, Rocky, CentOS etc.', 
+    1: 'Ubuntu, Debian, Pop!OS etc.',
+    2: 'Windows'
+    # 3: 'Other Linux Distros'
+}
 
 app = Flask(__name__)
 icons_b64 = json.load(open('icons.json'))
@@ -34,16 +43,11 @@ def search_query(query):
     return top_items
 
 def classify_query(query):
-    results = [
-        {"category": "RHEL, Fedora, Rocky, CentOS etc.", "percentage": random.uniform(0, 100)},
-        {"category": "Ubuntu, Debian etc. ", "percentage": random.uniform(0, 100)},
-        {"category": "Windows", "percentage": random.uniform(0, 100)},
-        {"category": "Unknown or others", "percentage": random.uniform(0, 100)},
-    ]
-    percent_sum = sum([i["percentage"] for i in results])
-    for result in results:
-        result["percentage"] = result["percentage"] / percent_sum
+    predicted_probas = model.predict_proba(np.array(query)[None])[0]
 
+    results = [
+        {"category": cats[i], "percentage": float(proba)} for i, proba in enumerate(predicted_probas)
+    ]
     results = sorted(results, key=cmp_to_key(lambda x1, x2: - (x1["percentage"] - x2["percentage"])))
     return results
 
