@@ -1,5 +1,9 @@
 # CS-410 (Text Information Systems) Project
-Infer operating system from commands/packages
+Infer operating system from commands/packages and retrieve related scripts for user query.
+
+## Live Project
+
+This project have been deployed live on the web UI and can be accessed from https://code-search-dot-code-crafts-1477836554331.el.r.appspot.com/.
 
 ## Project Member(s)
 
@@ -23,3 +27,4 @@ The source code for the entire project can be found from the [src/ directory](./
 
 ## Documentation
 
+For complete project details covering: implementation, functions, usage, etc. please refer to the [documentation](./DOCUMENTATION.md).

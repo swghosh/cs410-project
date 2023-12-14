@@ -21,3 +21,5 @@ gunicorn --bind :$PORT --workers 1 05-server:app
 3. [03-data-ops-classification-final.ipynb](./03-data-ops-classification-final.ipynb)
 4. [04-create_ir_idx.py](./04-create_ir_idx.py)
 5. [05-server.py](./05-server.py)
+
+For more details about the implementation and description of respective `*.py` and `*.ipynb` files, please refer to the [project documentation](../DOCUMENTATION.md).
