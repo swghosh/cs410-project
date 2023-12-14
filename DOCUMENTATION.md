@@ -87,7 +87,7 @@ gunicorn --bind :$PORT --workers 1 05-server:app
 
 **Option 2**: Run the web application by deploying it to Google App Engine.
 
-- Pre-requisite: git, an active Google Cloud account with AppEngine enabled, `gcloud` tool setup on local and `gcloud auth login` already done with associate Google account. 
+- Pre-requisite: git, an active Google Cloud account with AppEngine enabled, `gcloud` tool setup on local and `gcloud auth login` already done with associated Google account. 
 - Ideally, this web app should not consume resources beyond the [Google App Engine Free Tier](https://cloud.google.com/free/docs/free-cloud-features#app-engine) but in case of excessive traffic to the app or in any many other unforeseen cases, **deploying the app may cause charging your Google Cloud account**. Please be aware of the charges that could incur before attempting to deploy the app to your own account.
 - Besides the project have been deployed by the author, which can be accessed from **https://code-search-dot-code-crafts-1477836554331.el.r.appspot.com/**.
 

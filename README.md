@@ -1,4 +1,4 @@
-# CS-410 (Text Information Systems) Project
+# CodeSearch: CS-410 (Text Information Systems) Project
 Infer operating system from commands/packages and retrieve related scripts for user query.
 
 ## Live Project
@@ -19,7 +19,7 @@ The past progress report (as of 2023-11-19) can be found [here](./PROGRESS.md).
 
 ## Data
 
-The raw data used for preparing this project can be found from the [data/ directory](./data).
+The raw data used for preparing this project (for both: classification model training, text retrieval index creation) can be found from the [data/ directory](./data).
 
 ## Source Code
 
