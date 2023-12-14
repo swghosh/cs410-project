@@ -11,4 +11,15 @@ The complete project proposal can be found [here](./PROPOSAL.md). The track for 
 
 ## Progress Report
 
-The current progress report (as of 2023-11-19) can be found [here](./PROGRESS.md). 
+The past progress report (as of 2023-11-19) can be found [here](./PROGRESS.md). 
+
+## Data
+
+The raw data used for preparing this project can be found from the [data/ directory](./data).
+
+## Source Code
+
+The source code for the entire project can be found from the [src/ directory](./src).
+
+## Documentation
+

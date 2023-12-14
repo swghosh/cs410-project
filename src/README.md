@@ -11,3 +11,13 @@ pip install -r requirements.txt
 export PORT=5000
 gunicorn --bind :$PORT --workers 1 05-server:app 
 ```
+
+<hr>
+
+**Alert**: If you're willing to review the source code for this project and have reached this directory in pursuit of code review, please consider reviewing in the following sequence:
+
+1. [01-data-ops-preprocessing.ipynb](./01-data-ops-preprocessing.ipynb)
+2. [02-data-ops-classification-experiment.ipynb](./02-data-ops-classification-experiment.ipynb)
+3. [03-data-ops-classification-final.ipynb](./03-data-ops-classification-final.ipynb)
+4. [04-create_ir_idx.py](./04-create_ir_idx.py)
+5. [05-server.py](./05-server.py)
