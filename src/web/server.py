@@ -14,10 +14,8 @@ ranker = metapy.index.OkapiBM25()
 
 model = joblib.load('./data/model.joblib')
 cats = {
-    0: 'RHEL, Fedora, Rocky, CentOS etc.', 
-    1: 'Ubuntu, Debian, Pop!OS etc.',
-    2: 'Windows'
-    # 3: 'Other Linux Distros'
+    0: 'Linux (Ubuntu, RHEL, Fedora, Debian, CentOS etc.)', 
+    1: 'Windows',
 }
 
 app = Flask(__name__)
