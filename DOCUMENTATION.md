@@ -10,7 +10,7 @@ Course-work: **CS 410 (Text Information Systems) Project, University of Illinois
 
 The project is a Flask-based web application designed to determine the underlying operating system (Linux or Windows) based on user-input of shell scripts, commands, or package names. Also, based upon the user query it provides relevant scripts with it's corresponding GitHub links.
 
-The project is accessible for use from: https://code-search-dot-code-crafts-1477836554331.el.r.appspot.com/
+The project is accessible for use from: **https://code-search-dot-code-crafts-1477836554331.el.r.appspot.com/**
 
 **Brief**: 
 - Input: shell script command keywords or entire shell script or single line from a script
@@ -73,9 +73,35 @@ The project consists of several components:
         
 ## Usage
 
-TODO
+**Option 1**: Run the web application locally (at http://localhost:5000/).
+
+```sh
+# pre-requisite: git, ensure python 3.5/3.6/3.7 is available on local
+git clone https://github.com/swghosh/cs410-project.git
+cd src
+pip install -r requirements.txt
+export PORT=5000
+gunicorn --bind :$PORT --workers 1 05-server:app
+# open http://localhost:5000/ in a browser
+```
+
+**Option 2**: Run the web application by deploying it to Google App Engine.
+
+- Pre-requisite: git, an active Google Cloud account with AppEngine enabled, `gcloud` tool setup on local and `gcloud auth login` already done with associate Google account. 
+- Ideally, this web app should not consume resources beyond the [Google App Engine Free Tier](https://cloud.google.com/free/docs/free-cloud-features#app-engine) but in case of excessive traffic to the app or in any many other unforeseen cases, **deploying the app may cause charging your Google Cloud account**. Please be aware of the charges that could incur before attempting to deploy the app to your own account.
+- Besides the project have been deployed by the author, which can be accessed from **https://code-search-dot-code-crafts-1477836554331.el.r.appspot.com/**.
+
+```sh
+git clone https://github.com/swghosh/cs410-project.git
+cd src
+gcloud config set project "<PROJECT_ID>" # replace with the exact GCP project id where app is intended to be deployed
+gcloud app deploy
+# open the URL displayed by the output of the last command in a browser
+```
 
 ## Sample Evaluation Test Cases 
+
+These are some of the sample queries that can one try on the web UI for testing both classification and retrieval.
 
 - Windows
     - `msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi`
