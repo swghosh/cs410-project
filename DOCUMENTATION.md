@@ -78,7 +78,7 @@ The project consists of several components:
 ```sh
 # pre-requisite: git, ensure python 3.5/3.6/3.7 is available on local
 git clone https://github.com/swghosh/cs410-project.git
-cd src
+cd cs410-project/src
 pip install -r requirements.txt
 export PORT=5000
 gunicorn --bind :$PORT --workers 1 05-server:app
@@ -93,7 +93,7 @@ gunicorn --bind :$PORT --workers 1 05-server:app
 
 ```sh
 git clone https://github.com/swghosh/cs410-project.git
-cd src
+cd cs410-project/src
 gcloud config set project "<PROJECT_ID>" # replace with the exact GCP project id where app is intended to be deployed
 gcloud app deploy
 # open the URL displayed by the output of the last command in a browser
