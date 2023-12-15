@@ -20,7 +20,7 @@ The project is accessible for use from: **https://code-search-dot-code-crafts-14
 
 ## High Level Architecture
 
-TODO
+![App Architecture Diagram](./architecture.png)
 
 ## Technology Stack
 
@@ -69,7 +69,6 @@ The project consists of several components:
         - Functional interface of web UI:
             - User is shown a large search bar as an HTML form where user can input their query string which could either be entire script, few keywords from a script or a single line from a script
             - Upon form submission, the output page showcases a bar chart illustrating classification with prediction probabilities and additionally, it presents the top 6 relevant scripts retrieved from the dataset with their corresponding GitHub links.
-                - (PS: some GitHub links may not be functional (leading to 404s )as data collection at the time of original source dataset generation isn't the same at inference time on the webapp, online text retrieval isn't included in the scope)
         
 ## Usage
 
@@ -128,4 +127,7 @@ These are some of the sample queries that can one try on the web UI for testing 
 
 ## Challenges and Limitations
 
-TODO
+- Data pre-processing seemed very essential for both the text classification as well as retrieval tasks. Currently, unigram based word tokens were used which works quite well for natural language text tasks however it may not work in a robust manner for source code mining or classification as symbols and special characters in programming languages bear special meanings. In the future, this can be improved by use of better tokenization for eg. Code BERT tokenization which supports Python, Golang, Java, etc. but din't seem to be available yet for shell scripts. Improved pre-processing and tokenization would lead to better performance on the downstream tasks.
+- For any supervised learning scenario, eg. text classification the availability of accuract labels are really very important as without them no matter which classification algorithm be used it is bound to fail, which was a takeaway from the series of experiments run for obtaining a good classifier. Apart from labelling, real world data is often imbalanced in nature with respect to the class distribution from wherever the original data is collected and classifiers are prone to the curse of imbalance leading to misleading results at inference time.
+- The memory utilization of the current web application is on the higher side which is because the complete dataset in the form of a dataframe is loaded to memory at runtime for processing ease, however there is possibility for this approach to be improved so larger dataset can be handled effectively via use of online mining.
+- Some GitHub links sourced as a part of the retrieval process may not be functional and would lead to 404 web pages. This is because an offline dataset collected from archived data have been used and some data on GitHub may have been deleted the at the time of accessing from the web app. The same could also be improved through online text retrieval and introducing checks for data to be shown on UI but currently this hasn't been covered in the scope.
