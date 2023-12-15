@@ -28,3 +28,7 @@ The source code for the entire project can be found from the [src/ directory](./
 ## Documentation
 
 For complete project details covering: implementation, functions, usage, etc. please refer to the [documentation](./DOCUMENTATION.md).
+
+## Presentation
+
+For the video presentation covering all the details and a short demo of the application in action, please visit: https://mediaspace.illinois.edu/media/t/1_7nyj0wu4 
